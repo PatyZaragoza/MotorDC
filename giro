@@ -1,2 +1,51 @@
-# Patricia Zaragoza Palma
-#Crear con PIC 16F628A cambio de giro de motor DC
+; Patricia Zaragoza Palma
+; Crear con PIC 16F628A cambio de giro de motor DC
+
+LIST      P=16F628A
+    INCLUDE   <P16F628A.INC>
+
+    __CONFIG _INTRC_OSC_NOCLKOUT & _WDT_OFF & _MCLRE_OFF & _LVP_OFF & _CP_OFF & _BODEN_OFF
+
+    ; Definir los pines
+    BOTON1   EQU 0     ; RA0
+    BOTON2   EQU 1     ; RA1
+    RELAY1   EQU 0     ; RB0
+    RELAY2   EQU 1     ; RB1
+
+    ORG 0x00
+    GOTO START
+
+START
+    ; Configuración de los puertos
+    BSF STATUS, RP0       ; Cambiar a Banco 1
+    MOVLW 0x03            ; Configurar RA0 y RA1 como entradas (00000011)
+    MOVWF TRISA
+    CLRF TRISB            ; Configurar todo el puerto B como salida
+    BCF STATUS, RP0       ; Cambiar a Banco 0
+
+MAIN_LOOP
+    ; Verificar si BOTON1 está presionado
+    BTFSC PORTA, BOTON1   
+    GOTO GIRO_HORARIO     
+    ; Verificar si BOTON2 está presionado
+    BTFSC PORTA, BOTON2   
+    GOTO GIRO_ANTIHORARIO 
+
+    ; Si no se presionan botones, desactivar ambos relés
+    BCF PORTB, RELAY1
+    BCF PORTB, RELAY2
+    GOTO MAIN_LOOP
+
+GIRO_HORARIO
+    ; Activar relé 1 para giro horario y desactivar relé 2
+    BSF PORTB, RELAY1     
+    BCF PORTB, RELAY2     
+    GOTO MAIN_LOOP
+
+GIRO_ANTIHORARIO
+    ; Activar relé 2 para giro antihorario y desactivar relé 1
+    BSF PORTB, RELAY2     
+    BCF PORTB, RELAY1     
+    GOTO MAIN_LOOP
+
+    END
