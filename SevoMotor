@@ -1,0 +1,42 @@
+# Patricia Zaragoza Palma
+# Ingenieria en sistemas Computacionales 
+// Realizar el codigo en Arduino para el uso de un servo motor teniendo en cuenta que se usan dos botones, uno para inicializarlo y otro para detenerlo.
+
+#include <Servo.h>
+
+Servo myServo;
+
+// Pines de los botones
+const int avancePin = 2; 
+const int retrocesoPin = 3; 
+
+int angulo = 0; // Ángulo inicial del servo
+
+void setup() {
+  myServo.attach(9);
+  myServo.write(angulo); 
+
+  // Configuración de los botones como entradas
+  pinMode(avancePin, INPUT_PULLUP); 
+  pinMode(retrocesoPin, INPUT_PULLUP);
+}
+
+void loop() {
+  // Verificar si se presionó el botón de avance
+  if (digitalRead(avancePin) == LOW) {
+    if (angulo < 180) {
+      angulo += 1;
+      myServo.write(angulo);
+      delay(20); 
+    }
+  }
+
+  // Verificar si se presionó el botón de retroceso
+  if (digitalRead(retrocesoPin) == LOW) {
+    if (angulo > 0) { 
+      angulo -= 1;
+      myServo.write(angulo);
+      delay(20);
+    }
+  }
+}
