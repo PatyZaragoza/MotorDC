@@ -1,4 +1,4 @@
-; Patricia Zaragoza Palma
+; Patricia Zaragoza Palma 3701
 ; Crear con PIC 16F628A cambio de giro de motor DC
 
 LIST      P=16F628A
