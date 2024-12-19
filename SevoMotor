@@ -1,5 +1,5 @@
-# Patricia Zaragoza Palma
-# Ingenieria en sistemas Computacionales 
+// Patricia Zaragoza Palma
+// Ingenieria en sistemas Computacionales 
 // Realizar el codigo en Arduino para el uso de un servo motor teniendo en cuenta que se usan dos botones, uno para inicializarlo y otro para detenerlo.
 
 #include <Servo.h>
