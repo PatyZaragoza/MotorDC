@@ -1,5 +1,7 @@
 ; Patricia Zaragoza Palma 3701
 ; Crear con PIC 16F628A cambio de giro de motor DC
+; se ocupan dos botones uno para encender y otro para apagar 
+
 
 LIST      P=16F628A
     INCLUDE   <P16F628A.INC>
